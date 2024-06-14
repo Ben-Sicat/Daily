@@ -9,6 +9,5 @@ Repository contains various personal bullshit  mwehehe
 
 ### Contact
 
-Benny - [bensicat00@gmail.com](https://twitter.com/your_twitter_handle) 
-
+Benny - [bensicat00@gmail.com](bensicat00@gmail.com) 
 Project Link: [https://github.com/Ben-Sicat/Daily](https://github.com/Ben-Sicat/Daily)
