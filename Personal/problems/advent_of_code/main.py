@@ -32,6 +32,7 @@ def trebuchet(self):
 #answer is 55477 
 
 
+# honestly dunno if i wanna continue cause the part 2 of trebuchet is bullshit HAHAHAHAHAH
 
 
 
