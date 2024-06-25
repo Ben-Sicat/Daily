@@ -1,0 +1,13 @@
+[package]
+name = "pinhole"
+version = "0.1.0"
+authors = ["Ben Sicat]
+[dependencies]
+nalgebra = "0.29"
+imageproc = "0.25"
+
+
+edition = "2021"
+
+[dev-dependencies]
+cireterion = "0.7"
