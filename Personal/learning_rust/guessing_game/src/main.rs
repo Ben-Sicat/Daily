@@ -2,7 +2,11 @@ use std:: io;
 use rand::Rng;
 use std::cmp::Ordering;
 fn main() {
-    println!("Guessing game!");
+    chapter_2();
+}
+
+fn chapter_2(){
+      println!("Guessing game!");
 
     println!("Enter a number : ");
     
