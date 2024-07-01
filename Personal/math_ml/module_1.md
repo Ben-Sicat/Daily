@@ -11,9 +11,15 @@ $10a+1b = 13$
 
 This is a simple linear algebra problem; I have a constant linear algebra coefficients here `2 , 3, 10 , 1`,
 That relate the input values here of `a and b ` to the output  `8 and 13`
-<svg width="50" height="60" xmlns="http://www.w3.org/2000/svg">
-  <text x="10" y="20" font-family="serif" font-size="20">(</text>
-  <text x="20" y="20" font-family="serif" font-size="20">a</text>
-  <text x="20" y="40" font-family="serif" font-size="20">b</text>
-  <text x="35" y="20" font-family="serif" font-size="20">)</text>
-</svg>
+$$
+\mathbf{v} = \begin{pmatrix}
+a \\
+b
+\end{pmatrix}
+$$
+
+
+so it can be seen like this:
+
+( 2 , 3       [a      = [8
+  10, 1 )      b]        13]
