@@ -25,4 +25,3 @@ This project provides a foundation for building a more elaborate RAG system. You
 
 ## Authors:
 Benito Raphael T. Sicat IV
-
