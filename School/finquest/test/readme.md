@@ -1,37 +1,37 @@
- tests/
-│   │   ├── __init__.py
-│   │   ├── test_db/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_user.py
-│   │   │   ├── test_document.py
-│   │   │   ├── test_embedding.py
-│   │   │   ├── test_literature.py
-│   │   │   └── test_interaction.py
-│   │   ├── test_rag/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_retriever.py
-│   │   │   ├── test_indexer.py
-│   │   │   ├── test_generator.py
-│   │   │   ├── test_rag_service.py
-│   │   │   └── test_query_service.py
-│   │   ├── test_embeddings/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_generator.py
-│   │   │   └── test_retriever.py
-│   │   ├── test_models/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_langchain.py
-│   │   │   └── test_gemini.py
-│   │   ├── test_services/
-│   │   │   ├── __init__.py
-│   │   │   ├── test_document_service.py
-│   │   │   ├── test_embedding_service.py
-│   │   │   └── test_rag_service.py
-│   │   └── test_api/
-│   │       ├── __init__.py
-│   │       └── test_endpoints.py
-
-
-
-
-FOLLOW THIS
+ tests/<br />
+│   │   ├── __init__.py<br />
+│   │   ├── test_db/<br />
+│   │   │   ├── __init__.py<br />
+│   │   │   ├── test_user.py<br />
+│   │   │   ├── test_document.py<br />
+│   │   │   ├── test_embedding.py<br />
+│   │   │   ├── test_literature.py<br />
+│   │   │   └── test_interaction.py<br />
+│   │   ├── test_rag/<br />
+│   │   │   ├── __init__.py<br />
+│   │   │   ├── test_retriever.py<br />
+│   │   │   ├── test_indexer.py<br />
+│   │   │   ├── test_generator.py<br />
+│   │   │   ├── test_rag_service.py<br />
+│   │   │   └── test_query_service.py<br />
+│   │   ├── test_embeddings/<br />
+│   │   │   ├── __init__.py<br />
+│   │   │   ├── test_generator.py<br />
+│   │   │   └── test_retriever.py<br />
+│   │   ├── test_models/<br />
+│   │   │   ├── __init__.py<br />
+│   │   │   ├── test_langchain.py<br />
+│   │   │   └── test_gemini.py<br />
+│   │   ├── test_services/<br />
+│   │   │   ├── __init__.py<br />
+│   │   │   ├── test_document_service.py<br />
+│   │   │   ├── test_embedding_service.py<br />
+│   │   │   └── test_rag_service.py<br />
+│   │   └── test_api/<br />
+│   │       ├── __init__.py<br />
+│   │       └── test_endpoints.py<br />
+<br />
+<br />
+<br />
+<br />
+FOLLOW THIS<br />
