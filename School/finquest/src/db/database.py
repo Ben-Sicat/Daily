@@ -4,10 +4,8 @@ from pymongo import MongoClient
 import motor.motor_asyncio
 from dotenv import load_dotenv
 
-# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Load environment variables
 load_dotenv()
 
 class Database:
@@ -21,13 +19,16 @@ class Database:
 
         try:
             self.client = motor.motor_asyncio.AsyncIOMotorClient(mongo_url)
-            self.db = self.client["finquest"]  # Replace with your actual database name
+            self.db = self.client["finquest"]  
         except Exception as e:
             logging.error(f"Error connecting to MongoDB: {e}")
             raise ConnectionError(f"Error connecting to MongoDB: {e}")
 
     def get_database(self):
         return self.db
+
+    def get_collection(self, collection_name):
+        return self.db[collection_name]
 
     async def check_connection(self):
         try:

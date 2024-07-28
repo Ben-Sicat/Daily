@@ -1,17 +1,30 @@
-"""
-This module contains the Document model.
-"""
-from beanie import Document, PydanticObjectId
-from pydantic import BaseModel
-from typing import Optional, List
-from datetime import datetime
+from typing import List, Optional
+from pydantic import BaseModel, Field
+from bson import ObjectId
 
-
-class Document(Document):
-    _id: PydanticObjectId
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+        
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid ObjectId")
+        return ObjectId(v)
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
+    
+class Document(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     title: str
     content: str
-    author: str
-    tags: Optional[List[str]]
-    created_at: datetime
-    updated_at: datetime    
+    author: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+    
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str} 
