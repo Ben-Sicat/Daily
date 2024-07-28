@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from bson import ObjectId
 
-from db.models.document import PyObjectId
+from .document import PyObjectId
 
 class Interaction(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")

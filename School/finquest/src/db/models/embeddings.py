@@ -2,7 +2,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from bson import ObjectId
 
-from db.models.document import PyObjectId
+from .document import PyObjectId
 
 class Embeddings(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
