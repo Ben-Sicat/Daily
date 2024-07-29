@@ -1,7 +1,7 @@
 # src/db/test_insert.py
 
 from src.database import Database
-from src.db.models import Literature, Document, Users, Interaction
+from src.db.models import Literature, Document, Users, Interaction, Embeddings
 
 import asyncio
 import logging
@@ -14,24 +14,24 @@ async def insert_test_data():
     db = Database()
     database = db.get_database()
 
-    # Test data for Literature collection
-    literature_data = {
-        "title": "A Study on Artificial Intelligence",
-        "content": "Artificial Intelligence is rapidly evolving...",
-        "url": "http://example.com/ai-study",
-        "created_at": "2024-07-25",
-        "updated_at": "2024-07-25"
-    }
+    # # Test data for Literature collection
+    # literature_data = {
+    #     "title": "A Study on Artificial Intelligence",
+    #     "content": "Artificial Intelligence is rapidly evolving...",
+    #     "url": "http://example.com/ai-study",
+    #     "created_at": "2024-07-25",
+    #     "updated_at": "2024-07-25"
+    # }
 
-    # Convert to Pydantic model
-    literature = Literature(**literature_data)
+    # # Convert to Pydantic model
+    # literature = Literature(**literature_data)
 
-    try:
-        # Insert literature data into MongoDB
-        result = await database.literature.insert_one(literature.model_dump(by_alias=True))
-        logging.info(f"Inserted literature document ID: {result.inserted_id}")
-    except Exception as e:
-        logging.error(f"Error inserting literature: {e}")
+    # try:
+    #     # Insert literature data into MongoDB
+    #     result = await database.literature.insert_one(literature.model_dump(by_alias=True))
+    #     logging.info(f"Inserted literature document ID: {result.inserted_id}")
+    # except Exception as e:
+    #     logging.error(f"Error inserting literature: {e}")
 
     # Test data for Document collection
     document_data = {
@@ -39,7 +39,8 @@ async def insert_test_data():
         "content": "Deep Learning techniques have transformed AI...",
         "author": "John Doe",
         "created_at": "2024-07-25",
-        "updated_at": "2024-07-25"
+        "updated_at": "2024-07-25",
+        "embedding": [0.1, 0.2, 0.3, 0.4, 0.5]
     }
 
     # Convert to Pydantic model
@@ -52,41 +53,59 @@ async def insert_test_data():
     except Exception as e:
         logging.error(f"Error inserting document: {e}")
 
-    # Test data for User collection
-    user_data = {
-        "name": "janedoe",
-        "email": "janedoe@example.com",
-        "full_name": "Jane Doe",
-        "password": "hashed_password_here",
-    }
+    # # Test data for User collection
+    # user_data = {
+    #     "name": "janedoe",
+    #     "email": "janedoe@example.com",
+    #     "full_name": "Jane Doe",
+    #     "password": "hashed_password_here",
+    # }
 
-    # Convert to Pydantic model
-    user = Users(**user_data)
+    # # Convert to Pydantic model
+    # user = Users(**user_data)
 
-    try:
-        # Insert user data into MongoDB
-        result = await database.users.insert_one(user.model_dump(by_alias=True))
-        logging.info(f"Inserted user ID: {result.inserted_id}")
-    except Exception as e:
-        logging.error(f"Error inserting user: {e}")
+    # try:
+    #     # Insert user data into MongoDB
+    #     result = await database.users.insert_one(user.model_dump(by_alias=True))
+    #     logging.info(f"Inserted user ID: {result.inserted_id}")
+    # except Exception as e:
+    #     logging.error(f"Error inserting user: {e}")
 
-    # Test data for Interaction collection
-    interaction_data = {
-        "user_id": str(user.id),
-        "query": "What is AI?",
-        "response": "AI stands for Artificial Intelligence...",
-        "timestamp": "2024-07-25T12:00:00"
-    }
+    # # Test data for Interaction collection
+    # interaction_data = {
+    #     "user_id": str(user.id),
+    #     "query": "What is AI?",
+    #     "response": "AI stands for Artificial Intelligence...",
+    #     "timestamp": "2024-07-25T12:00:00"
+    # }
 
-    # Convert to Pydantic model
-    interaction = Interaction(**interaction_data)
+    # # Convert to Pydantic model
+    # interaction = Interaction(**interaction_data)
 
-    try:
-        # Insert interaction data into MongoDB
-        result = await database.interactions.insert_one(interaction.model_dump(by_alias=True))
-        logging.info(f"Inserted interaction ID: {result.inserted_id}")
-    except Exception as e:
-        logging.error(f"Error inserting interaction: {e}")
+    # try:
+    #     # Insert interaction data into MongoDB
+    #     result = await database.interactions.insert_one(interaction.model_dump(by_alias=True))
+    #     logging.info(f"Inserted interaction ID: {result.inserted_id}")
+    # except Exception as e:
+    #     logging.error(f"Error inserting interaction: {e}")
+    
+    # test data for embedding collection
+    # embedding_data = {
+    #     "document_id": "1",
+    #     "embeddings": [0.1, 0.2, 0.3, 0.4, 0.5]
+    # }
+    
+    # # Convert to Pydantic model
+    # embedding = Embeddings(**embedding_data)
+    
+    # try:
+    #     # Insert embedding data into MongoDB
+    #     result = await database.embeddings.insert_one(embedding.model_dump(by_alias=True))
+    #     logging.info(f"Inserted embedding ID: {result.inserted_id}")
+    # except Exception as e:
+    #     logging.error(f"Error inserting embedding: {e}")
+        
+    
 
 # Run the asynchronous test_insert function
 if __name__ == "__main__":

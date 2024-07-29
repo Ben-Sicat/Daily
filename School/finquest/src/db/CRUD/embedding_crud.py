@@ -1,8 +1,11 @@
 from pymongo import ReturnDocument
+from typing import List, Dict
 from src.db.models.document import Document
 from src.db import Database
 from bson import ObjectId
 import logging
+
+from langchain.embeddings.utils import cosine_similarity
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -57,4 +60,28 @@ class DocumentCRUD:
         except Exception as e:
             logging.error(f"Error deleting document: {e}")
             raise e
+    @staticmethod
+    async def retrieve_similar_embeddings(query_embedding: List[float], k: int = 5) -> List[Dict[str, any]]:
+        """Retrieve similar embeddings from the database."""
+        try:
+            cursor = db.document.find({}, {"_id": 1, "embedding": 1, "text": 1})
+            result = []
+            
+            async for doc in cursor:
+                #cosine similarity
+                stored_embedding = doc["embedding"]
+                similarity = cosine_similarity(query_embedding, stored_embedding)
+                
+                result.append({
+                    "document_id": str(doc["_id"]),
+                    "text": doc["text"],
+                    "similarity": similarity
         
+                })
+                
+            result.sort(key=lambda x: x["similarity"], reverse=True)
+            return result[:k]
+        
+        except Exception as e:
+            logging.error(f"Error retrieving similar embeddings: {e}")
+            return []

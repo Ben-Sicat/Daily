@@ -26,7 +26,7 @@ class Document(BaseModel):
     author: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
-
+    embedding:List[float]
     class Config:
         populate_by_name = True
         arbitrary_types_allowed = True
