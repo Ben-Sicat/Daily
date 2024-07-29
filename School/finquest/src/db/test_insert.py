@@ -54,12 +54,10 @@ async def insert_test_data():
 
     # Test data for User collection
     user_data = {
-        "username": "janedoe",
+        "name": "janedoe",
         "email": "janedoe@example.com",
         "full_name": "Jane Doe",
-        "hashed_password": "hashed_password_here",
-        "is_active": True,
-        "is_admin": False
+        "password": "hashed_password_here",
     }
 
     # Convert to Pydantic model
