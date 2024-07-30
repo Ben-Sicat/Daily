@@ -1,0 +1,55 @@
+{
+    "entries":[
+        {
+            "income_class": "Low",
+            "distribution":
+            {
+                "Food and Groceries":"53.40%",
+                "Rent or Housing":"10.70%",
+                "Transportation and Communication":"7.10%",
+                "Light and Water":"7.70%",
+                "Government Taxes":"0.50%",
+                "Educational Expenses":"2.50%",
+                "Electricity Expenses":"6.50%",
+                "Health Expenses":"2.00%",
+                "Personal Care":"3.90%",
+                "Miscellaneous Expenses":"16.40%"
+            },
+            "author":"https://digido.ph/articles/middle-class-philippines"
+        },
+        {
+            "income_class": "Low",
+            "distribution":
+            {
+                "Food and Groceries":"41.30%",
+                "Rent or Housing":"113.90%",
+                "Transportation and Communication":"6.00%",
+                "Light and Water":"7.70%",
+                "Government Taxes":"2.40%",
+                "Educational Expenses":"4.10%",
+                "Electricity Expenses":"6.60%",
+                "Health Expenses":"3.80%",
+                "Personal Care":"3.60%",
+                "Miscellaneous Expenses":"21.90%"
+            },
+            "author":"https://digido.ph/articles/middle-class-philippines"
+        },
+        {
+            "income_class": "High",
+            "distribution":
+            {
+                "Food and Groceries":"21.30%",
+                "Rent or Housing":"16.60%",
+                "Transportation and Communication":"4.70%",
+                "Light and Water":"5.60%",
+                "Government Taxes":"5.40%",
+                "Educational Expenses":"4.70%",
+                "Electricity Expenses":"5.70%",
+                "Health Expenses":"6.20%",
+                "Personal Care":"3.00%",
+                "Miscellaneous Expenses":"32.10%"
+            },
+            "author":"https://digido.ph/articles/middle-class-philippines"
+        }
+    ]
+}
