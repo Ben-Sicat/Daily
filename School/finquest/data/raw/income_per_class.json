@@ -1,0 +1,50 @@
+{
+    "entries": [
+        {
+            "income_class": "Low",
+            "clusters":[
+                {
+                    "cluster": "Poor",
+                    "family_income": "Less than ₱9,100" 
+                },
+                {
+                    "cluster": "Low Income",
+                    "family_income": "₱9,100 to ₱18,200" 
+                }
+            ],
+            "author": "https://digido.ph/articles/middle-class-philippines"
+        },
+        {
+            "income_class": "Middle",
+            "clusters":[
+                {
+                    "cluster": "Lower Middle",
+                    "family_income": "₱18,200 to ₱36,400"
+                },
+                {
+                    "cluster": "Middle Middle",
+                    "family_income": "₱36,400 to ₱63,700"
+                },
+                {
+                    "cluster": "Upper Middle",
+                    "family_income": "₱63,700 to ₱109,200"
+                }
+            ],
+            "author":"https://digido.ph/articles/middle-class-philippines"
+        },
+        {
+            "income_class": "High",
+            "clusters":[
+                {
+                    "cluster": "Upper",
+                    "family_income": "₱109,200 to ₱182,000"
+                },
+                {
+                    "cluster": "Rich",
+                    "family_income": "Above ₱182,000"
+                }
+            ],
+            "author": "https://digido.ph/articles/middle-class-philippines"
+        }
+    ]
+}
