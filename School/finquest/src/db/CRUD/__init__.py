@@ -1,5 +1,7 @@
+# src/db/CRUD/__init__.py
 from .document_crud import DocumentCRUD
-from .literature_crud import LiteratureCRUD
-from .embedding_crud import EmbeddingCRUD
-from .interaction_crud import InteractionCRUD
-from .user_crud import UserCRUD
+# from CRUD.document_crud import DocumentCRUD
+# from CRUD.literature_crud import LiteratureCRUD
+# from CRUD.interaction_crud import InteractionCRUD
+# from CRUD.user_crud import UsersCRUD
+# from .embedding_crud import EmbeddingsCRUD

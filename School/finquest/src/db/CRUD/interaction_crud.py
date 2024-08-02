@@ -2,7 +2,7 @@
 
 from pymongo import ReturnDocument
 from src.db.models.interaction import Interaction
-from src.database import Database
+from src import Database
 from bson import ObjectId
 import logging
 

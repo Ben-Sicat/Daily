@@ -2,7 +2,7 @@
 
 from pymongo import ReturnDocument
 from src.db.models.literature import Literature
-from src.database import Database
+from src import Database
 from bson import ObjectId
 import logging
 

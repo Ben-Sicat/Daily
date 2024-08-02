@@ -1,1 +1,1 @@
-from .generator_utils import embed_text
+from .generator import TextEmbedder

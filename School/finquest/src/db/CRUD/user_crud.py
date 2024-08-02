@@ -1,6 +1,6 @@
 from pymongo import ReturnDocument
 from src.db.models.document import Document
-from src.db import Database
+from src import Database
 from bson import ObjectId
 import logging
 

@@ -1,7 +1,8 @@
 # src/db/models/document.py
 
 from typing import List, Optional
-from pydantic import BaseModel, Field
+from pydantic import Field
+from pydantic import BaseModel
 from bson import ObjectId
 
 class PyObjectId(ObjectId):
@@ -10,9 +11,10 @@ class PyObjectId(ObjectId):
         yield cls.validate
 
     @classmethod
-    def validate(cls, v):
+    def validate(cls, v, *args):
         if not ObjectId.is_valid(v):
-            raise ValueError("Invalid ObjectId")
+            raise ValueError("Invalid ObjectId with value: {v} from cls {cls}")
+            
         return ObjectId(v)
     
     @classmethod
@@ -26,7 +28,7 @@ class Document(BaseModel):
     author: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
-    embedding:List[float]
+    embedding:Optional[List[float]] = []
     class Config:
         populate_by_name = True
         arbitrary_types_allowed = True

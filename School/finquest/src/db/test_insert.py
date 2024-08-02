@@ -2,9 +2,10 @@
 
 from src.database import Database
 from src.db.models import Literature, Document, Users, Interaction, Embeddings
-
+from src.db.CRUD.document_crud import DocumentCRUD
 import asyncio
 import logging
+from bson import ObjectId
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,6 +14,7 @@ async def insert_test_data():
     # Create database connection
     db = Database()
     database = db.get_database()
+    print(database)
 
     # # Test data for Literature collection
     # literature_data = {
@@ -35,12 +37,14 @@ async def insert_test_data():
 
     # Test data for Document collection
     document_data = {
-        "title": "Understanding Deep Learning",
-        "content": "Deep Learning techniques have transformed AI...",
-        "author": "John Doe",
+        "title": "bullshit Deep machine Learning",
+        "content": "Deep Learning techniques have transformed AI and lana del rey...",
+        "author": "joe Doe",
         "created_at": "2024-07-25",
         "updated_at": "2024-07-25",
-        "embedding": [0.1, 0.2, 0.3, 0.4, 0.5]
+        "embedding": [[0.1, 0.2, 0.3, 0.4, 0.5], [0.6, 0.7, 0.8, 0.9, 1.0], [1.1, 1.2, 1.3, 1.4, 1.5]]
+
+ 
     }
 
     # Convert to Pydantic model
@@ -52,6 +56,41 @@ async def insert_test_data():
         logging.info(f"Inserted document ID: {result.inserted_id}")
     except Exception as e:
         logging.error(f"Error inserting document: {e}")
+        
+    # test the update on document with id 66a6ae4a0b32072336c2fb33
+    # from bson import ObjectId
+
+    # document_id = "66a6ae4a0b32072336c2fb33"
+    # object_id  = ObjectId(document_id)
+    # document_id = object_id
+    # update_data = {
+    #     "title": "Understanding Deep Learning by ben",
+    #     "content": "Deep Learning techniques have transformed AI... by ben sicat",
+    #     "author": "Ben Sic",
+    #     "created_at": "2024-07-25",
+    #     "updated_at": "2024-07-25",
+    #     "embedding": [[0.1, 0.2, 0.3, 0.4, 0.5], [0.6, 0.7, 0.8, 0.9, 1.0], [1.1, 1.2, 1.3, 1.4, 1.5]]
+    # }
+
+    # # Convert to Pydantic model (assuming Document is the correct model)
+    # document = Document(**update_data)
+
+    # try:
+    #     # Update document data in MongoDB
+    #     result = await DocumentCRUD.update_document(document_id, document.model_dump(by_alias=True))
+    #     if result:
+    #         logging.info(f"Updated document ID: {document_id}")
+    #     else:
+    #         logging.info(f"Document with ID {document_id} not found for update.")
+    # except Exception as e:
+    #     logging.error(f"Error updating document: {e}")
+
+    # document_id = "66a6ae4a0b32072336c2fb33"
+    # object_id = ObjectId(document_id)
+
+    # # Use object_id for querying
+    # result = await database.documents.find_one({"_id": object_id})
+    # print(result)
 
     # # Test data for User collection
     # user_data = {
