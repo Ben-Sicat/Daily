@@ -1,10 +1,7 @@
 from typing import Optional
 from src.db.CRUD.document_crud import DocumentCRUD
-from src.vertexai import initialize_vertex_ai  # Assuming this initializes Vertex AI client
+from src.vertexai import initialize_vertex_ai
 from src.utils.generator import TextEmbedder as embed_text
-import pymongo
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-# from langchain.vectorstores import MongoDBAtlasVectorSearch
 
 from google.cloud import aiplatform
 import asyncio
@@ -40,7 +37,7 @@ class Indexer:
 
     async def index_documents(self):
         """
-        Retrieves documents from the database, splits them, embeds them if needed, and updates the database.
+        Retrieves documents from the database, embeds them if needed, and updates the database.
         """
         try:
             documents = await DocumentCRUD.get_all_documents()
@@ -50,17 +47,10 @@ class Indexer:
                 return
 
             for document in documents:
-                # Check if embedding is valid (optional if document already has embedding field)
-                if not document.embedding or not isinstance(document.embedding, list) or len(document.embedding) != 256 or not all(isinstance(x, (int, float)) for x in np.array(document.embedding).flatten()):
-                    # Split document content using text splitter
-                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
-                    docs = text_splitter.split_documents(document.content)
-
-                    # Embed each document segment
-                    embeddings = [self.embedder(doc) for doc in docs]
-
-                    # Assuming document model dump combines content and embeddings
-                    document.embedding = embeddings  # Update document embedding with list of embeddings
+                # Check if embedding is valid
+                if not document.embedding or not isinstance(document.embedding, list) or len(document.embedding) != 256 or not all(isinstance(x, (int, float)) for x in np.array(document.embedding).flatten()): 
+                    logging.info(f"Embedding document {document.id}")
+                    document.embedding = self.embedder(document.content)  # Embed the content
                     await DocumentCRUD.update_document(document.id, document.model_dump(by_alias=True))
                 else:
                     logging.info(f"Document already indexed: {document.id}")

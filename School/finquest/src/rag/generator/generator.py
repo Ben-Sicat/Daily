@@ -1,148 +1,81 @@
-import time
-import logging
+import asyncio
 import os
-from dotenv import load_dotenv
-from pymongo import MongoClient
-from src import Database
-from src.utils.generator import TextEmbedder
-from langchain.vectorstores import DocArrayInMemorySearch
-from src.db.CRUD.document_crud import DocumentCRUD
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnableMap
-from langchain_google_vertexai import ChatVertexAI
-from src.vertexai import initialize_vertex_ai
 from typing import List
 
-# Initialize logging
-# logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from dotenv import load_dotenv
+from langchain.schema import Document
+from langchain_community.vectorstores import DocArrayInMemorySearch
+from langchain_google_vertexai import (ChatVertexAI, VertexAIEmbeddings)
+from src.db.CRUD.document_crud import DocumentCRUD
+from langchain.schema.runnable import RunnableMap
+from langchain_core.prompts import ChatPromptTemplate
+from motor.motor_asyncio import AsyncIOMotorClient  # Import AsyncIOMotorClient
+import logging
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-
-# Load environment variables
 load_dotenv()
 
-# Initialize Vertex AI
-client = initialize_vertex_ai()
-if not client:
-    logging.error("Could not initialize Vertex AI client.")
-    exit(1)
+DB_NAME = os.getenv('DATABASE_NAME')
+COLLECTION_NAME = "documents"
+CONNECTION_STRING = os.getenv('MONGO_URL')
+# Initialize Vertex AI Embeddings
+embeddings = VertexAIEmbeddings(
+    model="text-embedding-004", project="finquest", location="us-central1"
+)
 
-# Google VertexAI Gemini Model Initialization
-gemini = ChatVertexAI(model="gemini-1.5-flash-001", project="finquest", location="us-central1")
+async def fetch_all_documents() -> List[Document]:
+    """Fetches all documents from the specified MongoDB collection."""
+    #use DocumentCRUD to get all documents
+    documents = await DocumentCRUD.get_all_documents_content()
+    content_list = [doc['content'] for doc in documents]
+    logging.info(f"Fetched {len(content_list)} documents.")
+    return content_list
+async def initialize_db():
+    # Fetch documents directly
+    docs = await fetch_all_documents()
 
-# Database initialization
-db = Database().get_database()
+    # Extract content from documents and embed them
+    db = DocArrayInMemorySearch.from_texts(
+         docs, embeddings
+    )
+    return db
 
-# Embedded data generator
-embedder = TextEmbedder()
+# Initialize Vertex AI Chat Model
+gemini = ChatVertexAI(
+    model="gemini-1.5-flash-001", project="finquest", location="us-central1"
+)
 
-class AtlasClient:
-    def __init__(self, mongo_uri: str, db_name: str, collection_name: str):
-        self.client = MongoClient(mongo_uri)
-        self.database = self.client[db_name]
-        self.collection_name = collection_name
+# Create retriever (outside the async function as it depends on the awaited db)
+async def main():
+    db = await initialize_db()
+    retriever = db.as_retriever(
+        search_type="similarity", search_kwargs={"score_threshold": 0.8, "k": 2}
+    )
+    # Define prompt template
+    template = """Use the following context to answer the question. 
+    If you don't know the answer, just say that you don't know, don't try to make up an answer but mention first if you have context or no, confirm having context or no.
+    Act as if you were a financial advisor. and elaborate on your answers why. Your goal is to help them be financially literate.
+    
+    Context: {context}
 
-    def vector_search(self, query: str, limit: int = 10) -> List[dict]:
-        query = query.lower().strip()
+    Question: {question}
+    """
 
-        # Embed the query text
-        t1a = time.perf_counter()
-        embedded_query = embedder(query)
-        t1b = time.perf_counter()
-        logging.info(f"Embedding time: {t1b - t1a:.4f} seconds")
-
-        collection = self.database[self.collection_name]
-
-        # Placeholder for vector search
-        # Replace "$vectorSearch" with your actual vector search logic or integration
-        results = collection.aggregate([
+    # Create Langchain chain
+    prompt = ChatPromptTemplate.from_template(template)
+    chain = (
+        RunnableMap(
             {
-                "$vectorSearch": {
-                    "index": "embedding",  # Assuming the index name is "embedding"
-                    "path": "embedding",  # Assuming the embedding field name is "embedding"
-                    "queryVector": embedded_query,
-                    "numCandidates": 50,
-                    "limit": limit,
-                }
-            },
-            {
-                "$project": {
-                    "_id": 1,
-                    "title": 1,
-                    "content": 1,
-                    "search_score": {"$meta": "vectorSearchScore"},
-                }
-            },
-        ])
-
-        return list(results)
-
-    def do_vector_search(self, query: str) -> List[dict]:
-        query = query.lower().strip()
-
-        # Embed the query text
-        t1a = time.perf_counter()
-        embedded_query = embedder(query)  # Get the first (and only) result
-        t1b = time.perf_counter()
-        logging.info(f"Embedding time: {t1b - t1a:.4f} seconds")
-
-        # Perform the vector search
-        t2a = time.perf_counter()
-        collection = self.database[self.collection_name]
-        results = collection.aggregate([
-            {
-                "$vectorSearch": {
-                    "index": "embedding", 
-                    "path": "embedding",
-                    "queryVector": embedded_query,
-                    "numCandidates": 50,
-                    "limit": 10,
-                }
-            },
-            {
-                "$project": {
-                    "_id": 1,
-                    "title": 1,
-                    "content": 1,
-                    "search_score": {"$meta": "vectorSearchScore"},
-                }
-            },
-        ])
-        t2b = time.perf_counter()
-        #also add a log for the result
-        logging.info(f"Vector search result: {results}")
-        logging.info(f"Vector search time: {t2b - t2a:.4f} seconds")
-
-        for result in results:
-            logging.info(f"Result: {result}")
-        return list(results)
-
+                "context": lambda x: retriever.invoke(x["question"]),
+                "question": lambda x: x["question"],
+            }
+        )
+        | prompt
+        | gemini
+        | str  # Convert output to string
+    )
+    # Run the chain
+    response = await chain.ainvoke({"question": "How should you save money for needs? or how should I allocate them"})
+    print(response)
 
 if __name__ == "__main__":
-    # Retrieve MongoDB URI from environment variable
-    mongo_uri = os.getenv("MONGO_URL")
-    if not mongo_uri:
-        logging.error("MongoDB URI not found. Please set MONGO_URL in your environment variables.")
-        exit(1)
-
-    # Initialize Atlas Client
-    atlas_client = AtlasClient(mongo_uri, "finquest", collection_name="documents")
-
-    # Example query
-    query = "How much should you save of your income?"
-
-    # Perform vector search
-    results = atlas_client.do_vector_search(query)
-
-
-    # logging.info(f"Top Result: {results[0]}")
-    # Output resultslogging.info(f"Number of results: {len(results)}")
-    if len(results) > 0:
-        logging.info(f"Top Result: {results[0]}")
-    else:   
-        logging.info("No documents found for the query.")
-
-        
-    for result in results:
-        logging.info(f"Document ID: {result['_id']}, Title: {result['title']}, Score: {result['search_score']}")
+    asyncio.run(main())

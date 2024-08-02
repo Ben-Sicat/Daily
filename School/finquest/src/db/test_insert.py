@@ -36,27 +36,33 @@ async def insert_test_data():
     #     logging.error(f"Error inserting literature: {e}")
 
     # Test data for Document collection
-    document_data = {
-        "title": "bullshit Deep machine Learning",
-        "content": "Deep Learning techniques have transformed AI and lana del rey...",
-        "author": "joe Doe",
-        "created_at": "2024-07-25",
-        "updated_at": "2024-07-25",
-        "embedding": [[0.1, 0.2, 0.3, 0.4, 0.5], [0.6, 0.7, 0.8, 0.9, 1.0], [1.1, 1.2, 1.3, 1.4, 1.5]]
+    # document_data = {
+    #     "title": "bullshit Deep machine Learning",
+    #     "content": "Deep Learning techniques have transformed AI and lana del rey...",
+    #     "author": "joe Doe",
+    #     "created_at": "2024-07-25",
+    #     "updated_at": "2024-07-25",
+    #     "embedding": [[0.1, 0.2, 0.3, 0.4, 0.5], [0.6, 0.7, 0.8, 0.9, 1.0], [1.1, 1.2, 1.3, 1.4, 1.5]]
 
  
-    }
+    # }
 
-    # Convert to Pydantic model
-    document = Document(**document_data)
+    # # Convert to Pydantic model
+    # document = Document(**document_data)
 
+    # try:
+    #     # Insert document data into MongoDB
+    #     result = await database.documents.insert_one(document.model_dump(by_alias=True))
+    #     logging.info(f"Inserted document ID: {result.inserted_id}")
+    # except Exception as e:
+    #     logging.error(f"Error inserting document: {e}")
+    # now we're gonna create a test to see if the get all documents function works
     try:
-        # Insert document data into MongoDB
-        result = await database.documents.insert_one(document.model_dump(by_alias=True))
-        logging.info(f"Inserted document ID: {result.inserted_id}")
+        documents = await DocumentCRUD.get_all_documents_content()
+        print(documents)
     except Exception as e:
-        logging.error(f"Error inserting document: {e}")
-        
+        logging.error(f"Error getting documents: {e}")
+        return []  
     # test the update on document with id 66a6ae4a0b32072336c2fb33
     # from bson import ObjectId
 

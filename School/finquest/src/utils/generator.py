@@ -52,7 +52,6 @@ class TextEmbedder:
             raise RuntimeError(f"Failed to embed text: {e}")
         #now we laso have to handle the case where the text is a list 
         
-        
 # Example Usage
 if __name__ == "__main__":
     embedder = TextEmbedder()

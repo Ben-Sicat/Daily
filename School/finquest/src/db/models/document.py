@@ -4,7 +4,7 @@ from typing import List, Optional
 from pydantic import Field
 from pydantic import BaseModel
 from bson import ObjectId
-
+from datetime import datetime
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
@@ -26,8 +26,8 @@ class Document(BaseModel):
     title: str
     content: str
     author: Optional[str] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     embedding:Optional[List[float]] = []
     class Config:
         populate_by_name = True
