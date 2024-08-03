@@ -1,0 +1,175 @@
+{
+    "entries": [
+      {
+        "region": "Mindanao Region",
+        "minimumWage": {
+          "nonAgriculture": "₱423.00 – ₱438.001",
+          "agriculturePlantation": "₱411.00 – ₱426.00",
+          "agricultureNonPlantation": "₱411.00 – ₱426.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+      },
+      {
+        "region": "Cordillera Administrative Region",
+        "minimumWage": {
+          "nonAgriculture": "₱430.00",
+          "agriculturePlantation": "-",
+          "agricultureNonPlantation": "-"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Caraga Region",
+        "minimumWage": {
+          "nonAgriculture": "₱385.00",
+          "agriculturePlantation": "₱320.00 – ₱350.00",
+          "agricultureNonPlantation": "₱320.00 – ₱350.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Ilocos",
+        "minimumWage": {
+          "nonAgriculture": "₱435.00",
+          "agriculturePlantation": "₱402.00",
+          "agricultureNonPlantation": "₱402.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Cagayan Valley",
+        "minimumWage": {
+          "nonAgriculture": "₱450.00",
+          "agriculturePlantation": "₱430.00",
+          "agricultureNonPlantation": "₱415.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Central Luzon",
+        "minimumWage": {
+          "nonAgriculture": "₱499.00 – ₱500.00",
+          "agriculturePlantation": "₱434.00",
+          "agricultureNonPlantation": "₱422.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Calabarzon",
+        "minimumWage": {
+          "nonAgriculture": "₱520.00",
+          "agriculturePlantation": "₱385.00 – ₱479.00",
+          "agricultureNonPlantation": "₱385.00 – ₱479.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Mimaropa Region",
+        "minimumWage": {
+          "nonAgriculture": "₱369.00 – ₱395.00",
+          "agriculturePlantation": "-",
+          "agricultureNonPlantation": "-"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Zamboanga Peninsula",
+        "minimumWage": {
+          "nonAgriculture": "₱381.00",
+          "agriculturePlantation": "₱368.00",
+          "agricultureNonPlantation": "₱368.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "National Capital Region",
+        "minimumWage": {
+          "nonAgriculture": "₱610.00",
+          "agriculturePlantation": "₱573.00",
+          "agricultureNonPlantation": "₱573.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Bicol Region",
+        "minimumWage": {
+          "nonAgriculture": "₱395.00",
+          "agriculturePlantation": "₱395.00",
+          "agricultureNonPlantation": "₱395.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Western Visayas",
+        "minimumWage": {
+          "nonAgriculture": "₱450.00 – ₱480.00",
+          "agriculturePlantation": "₱440.00",
+          "agricultureNonPlantation": "₱440.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Central Visayas",
+        "minimumWage": {
+          "nonAgriculture": "₱420.00 – ₱468.00",
+          "agriculturePlantation": "₱415.00 – ₱458.00",
+          "agricultureNonPlantation": "₱415.00 – ₱458.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Eastern Visayas",
+        "minimumWage": {
+          "nonAgriculture": "₱405.00",
+          "agriculturePlantation": "-",
+          "agricultureNonPlantation": "₱345.00 – ₱375.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Northern Mindanao",
+        "minimumWage": {
+          "nonAgriculture": "₱423.00 – ₱438.00",
+          "agriculturePlantation": "₱411.00 – ₱426.00",
+          "agricultureNonPlantation": "₱411.00 – ₱426.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Davao Region",
+        "minimumWage": {
+          "nonAgriculture": "₱438.00 – ₱443.00",
+          "agriculturePlantation": "₱365.00 – ₱422.00",
+          "agricultureNonPlantation": "₱365.00 – ₱422.00"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      },
+      {
+        "region": "Soccskargen",
+        "minimumWage": {
+          "nonAgriculture": "₱390.00 – ₱403.00",
+          "agriculturePlantation": "₱382.00",
+          "agricultureNonPlantation": "-"
+        },
+        "author":"https://digido.ph/articles/minimum-wage-in-the-philippines"
+
+      }
+      
+    ]
+  }
+  
