@@ -9,6 +9,10 @@ class Users(BaseModel):
     name: str
     email: str
     password: str
+    income:Optional[str] 
+    expenses: Optional[str]
+    debt:Optional[str] 
+    generated: Optional[str]
     full_name: Optional[str] = None
     
     class Config:

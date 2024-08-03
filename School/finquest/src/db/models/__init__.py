@@ -4,4 +4,3 @@ from .document import Document
 from .literature import Literature
 from .users import Users
 from .interaction import Interaction
-from .embeddings import Embeddings

@@ -28,20 +28,25 @@ class UsersCRUD:
             logging.error(f"Error getting user: {e}")
             return None
     @staticmethod
-    async def update_user(user_id: str, user_data: dict) -> Document:
+    async def update_user(user_id: ObjectId, user_data: dict) -> Document:
+        update_data = {key: value for key, value in user_data.items() if key != "_id"}
+        print(user_id)
+        logging.info(f"document_id: {user_id}")
+        #now we need to parse document_id to string
+        # document_id = str(document_id)
         try:
-            user = await db.users.find_one_and_update(
-                {"_id": ObjectId(user_id)},
-                {"$set": user_data},
+            document = await db.documents.find_one_and_update(
+                {"_id": user_id},
+                {"$set": update_data},
                 return_document=ReturnDocument.AFTER
             )
-            if user:
-                return Document(**user)
+            if document:
+                return Document(**document)
             else:
-                logging.info(f"User with ID {user_id} not found")
+                logging.info(f"Document with ID {user_id} not found")
                 return None
         except Exception as e:
-            logging.error(f"Error updating user: {e}")
+            logging.error(f"Error updating document: {e}")
             return None
     @ staticmethod
     async def delete_user(user_id: str) -> bool:

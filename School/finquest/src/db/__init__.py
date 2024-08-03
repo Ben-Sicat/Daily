@@ -5,7 +5,6 @@ from .models.document import Document
 from .models.literature import Literature
 from .models.users import Users
 from .models.interaction import Interaction
-from .models.embeddings import Embeddings
 
 # Import CRUD operations
 # from .CRUD import document_crud, literature_crud, user_crud, interaction_crud, embedding_crud

@@ -9,8 +9,10 @@ from langchain_google_vertexai import (ChatVertexAI, VertexAIEmbeddings)
 from src.db.CRUD.document_crud import DocumentCRUD
 from langchain.schema.runnable import RunnableMap
 from langchain_core.prompts import ChatPromptTemplate
+from langchain.schema.output_parser import StrOutputParser
 from motor.motor_asyncio import AsyncIOMotorClient  # Import AsyncIOMotorClient
 import logging
+output_parser = StrOutputParser()
 
 load_dotenv()
 
@@ -41,19 +43,26 @@ async def initialize_db():
 
 # Initialize Vertex AI Chat Model
 gemini = ChatVertexAI(
-    model="gemini-1.5-flash-001", project="finquest", location="us-central1"
+    model="gemini-1.5-flash-001", project="finquest", location="us-central1",max_output_tokens=1500
 )
 
 # Create retriever (outside the async function as it depends on the awaited db)
 async def main():
     db = await initialize_db()
     retriever = db.as_retriever(
-        search_type="similarity", search_kwargs={"score_threshold": 0.8, "k": 2}
+        search_type="similarity", search_kwargs={"score_threshold": 0.4, "k": 3}
     )
     # Define prompt template
     template = """Use the following context to answer the question. 
-    If you don't know the answer, just say that you don't know, don't try to make up an answer but mention first if you have context or no, confirm having context or no.
-    Act as if you were a financial advisor. and elaborate on your answers why. Your goal is to help them be financially literate.
+    Act as if you were a financial advisor. and elaborate on your suggestions why I should do your suggestions. 
+    Your goal is to help me be financially literate, so teach me how to:
+    1. allocate, budget and prioritize income based on the needs of a typical filipino person.
+    2. identify non essentials in my expenses and try to suggest to stop them but if there are non just proceed
+    3. how to pay off debt based on income and needs.
+    so consider everything when it comes to my finances but be sensible.
+    Here is the data on my income per month, expenses per month and overall debt/s. {user_data} and all numbers mentioned are Filipino Peso so just reffer to it as php
+    
+     create a final report on how my budget should look like
     
     Context: {context}
 
@@ -67,15 +76,18 @@ async def main():
             {
                 "context": lambda x: retriever.invoke(x["question"]),
                 "question": lambda x: x["question"],
+                "user_data": lambda x: x["user_data"]
             }
         )
         | prompt
         | gemini
-        | str  # Convert output to string
+        | list  # Convert output to string
     )
     # Run the chain
-    response = await chain.ainvoke({"question": "How should you save money for needs? or how should I allocate them"})
+    response = chain.invoke({"question": "How should you save money for needs? or how should I allocate them", 
+                                    "user_data": {"Expenses: transportation 1000, food 5000, vape = 500, cigs = 200", "Income=salary = 35000, non regular income on commissions = 1k-4k", "debt = 1000000"}}
+                                       )
+    # response_lines = response.splitlines()
     print(response)
-
 if __name__ == "__main__":
     asyncio.run(main())
